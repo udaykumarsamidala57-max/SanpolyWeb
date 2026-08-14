@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/homepage")
+@WebServlet("/")
 public class HomePageServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
