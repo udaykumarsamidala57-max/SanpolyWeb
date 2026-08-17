@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/")
+@WebServlet("/homepage")
 public class HomePageServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +46,7 @@ public class HomePageServlet extends HttpServlet {
         List<Map<String, Object>> eventList = new ArrayList<>();
 
         // DATABASE CONNECTION
-        try (Connection conn = DBUtil.getConnection("SanWeb")) {
+        try (Connection conn = DBUtil.getConnection("SRS")) {
 
             // 3. LOAD ALL PAGES FOR NAVIGATION
             String navSql = "SELECT id, title, slug FROM pages ORDER BY title ASC";

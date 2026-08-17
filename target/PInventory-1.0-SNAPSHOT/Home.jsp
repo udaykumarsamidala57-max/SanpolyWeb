@@ -138,7 +138,7 @@
                 alt="Sandur Residential School Logo">
 
             <h1>
-               Sandur Polytechnic
+                Sandur Polytechnic
             </h1>
 
         </div>
