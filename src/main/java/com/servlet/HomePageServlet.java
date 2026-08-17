@@ -46,7 +46,7 @@ public class HomePageServlet extends HttpServlet {
         List<Map<String, Object>> eventList = new ArrayList<>();
 
         // DATABASE CONNECTION
-        try (Connection conn = DBUtil.getConnection("SRS")) {
+        try (Connection conn = DBUtil.getConnection("SanWeb")) {
 
             // 3. LOAD ALL PAGES FOR NAVIGATION
             String navSql = "SELECT id, title, slug FROM pages ORDER BY title ASC";
