@@ -26,7 +26,7 @@
         <c:out
             value="${not empty pageData.title
                     ? pageData.title
-                    : 'Sandur Residential School'}" />
+                    : 'Sandur Polytechnic'}" />
     </title>
 
 
