@@ -211,7 +211,7 @@
             <img
                 src="${pageContext.request.contextPath}/Home/logo.png"
                 alt="Sandur Residential School Logo">
-            <h1>Sandur Residential School</h1>
+            <h1>Sandur Polytechnic</h1>
         </div>
 
         <div class="top-links">

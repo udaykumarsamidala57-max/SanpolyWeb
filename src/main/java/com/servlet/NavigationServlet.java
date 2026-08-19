@@ -40,7 +40,7 @@ public class NavigationServlet extends HttpServlet {
             "WHERE p.parent_id IS NULL " +
             "ORDER BY p.title ASC, c.title ASC";
 
-        try (Connection conn = DBUtil.getConnection("SRS");
+        try (Connection conn = DBUtil.getConnection("SanWeb");
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 

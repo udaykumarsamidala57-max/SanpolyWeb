@@ -20,7 +20,7 @@ public class DBUtil {
     public static Connection getConnection(String branch) throws SQLException {
         String url;
 
-        if ("SRS".equalsIgnoreCase(branch)) {
+        if ("SanWeb".equalsIgnoreCase(branch)) {
             url = "jdbc:mysql://shuttle.proxy.rlwy.net:26985/website"
                     + "?useSSL=false"
                     + "&allowPublicKeyRetrieval=true"

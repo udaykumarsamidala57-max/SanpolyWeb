@@ -44,7 +44,7 @@ public class ImageStreamServlet extends HttpServlet {
         String sql = "SELECT image_data, image_type, OCTET_LENGTH(image_data) AS image_size " +
                      "FROM section_images WHERE id = ?";
 
-        try (Connection conn = DBUtil.getConnection("SRS");
+        try (Connection conn = DBUtil.getConnection("SanWeb");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setLong(1, imageId);
