@@ -21,7 +21,7 @@ public class DBUtil {
         String url;
 
         if ("SRS".equalsIgnoreCase(branch)) {
-            url = "jdbc:mysql://shuttle.proxy.rlwy.net:26985/Sanweb"
+            url = "jdbc:mysql://shuttle.proxy.rlwy.net:26985/website"
                     + "?useSSL=false"
                     + "&allowPublicKeyRetrieval=true"
                     + "&serverTimezone=UTC"
