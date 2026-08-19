@@ -243,12 +243,7 @@
                             ? pageData.slug
                             : 'home')}" />
 
-            <!-- HOME LINK -->
-            <li class="${currentSlug eq 'home' ? 'active-tab' : ''}">
-                <a href="${pageContext.request.contextPath}/homepage?slug=home">
-                    Home
-                </a>
-            </li>
+          
 
             <!-- PARENT & CHILD PAGES -->
             <c:forEach var="pg" items="${pagesList}">
