@@ -182,11 +182,13 @@
             </div>
 
             <!-- Right Dynamic Subnavigation Sidebar (Rendered ONLY if current section has active dynamic sub-items) -->
-            <c:if test="${currentSlug ne 'about' 
-             and currentSlug ne 'lag' 
-             and currentSlug ne 'infrastructure' 
-             and currentSlug ne 'home' 
-             and currentSlug ne 'Leadership-Governance' 
+            <c:if test="${currentSlug ne 'about'
+             and currentSlug ne 'lag'
+             and currentSlug ne 'infrastructure'
+             and currentSlug ne 'home'
+             and currentSlug ne 'lag'
+             and currentSlug ne 'slung'
+             and currentSlug ne 'our-legacy'
              and not empty dynamicSubMenuItems}">
                 <aside class="sidebar-nav-box">
                     <ul>
