@@ -183,7 +183,6 @@
 
             <!-- Right Dynamic Subnavigation Sidebar (Rendered ONLY if current section has active dynamic sub-items) -->
             <c:if test="${currentSlug ne 'about'
-             and currentSlug ne 'lag'
              and currentSlug ne 'infrastructure'
              and currentSlug ne 'home'
              and currentSlug ne 'lag'
@@ -220,7 +219,7 @@
     </script>
 
     <script src="${pageContext.request.contextPath}/js/hero.js"></script>
-    <script src="${pageContext.request.contextPath}/js/distinct.js"></script>
+    
 
 </body>
 </html>

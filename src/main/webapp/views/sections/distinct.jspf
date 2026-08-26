@@ -1,13 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- =================================================
      DISTINCT SECTION
 ================================================= -->
 
 <section class="distinct-section">
 
-    <!-- =================================================
-         DISTINCT INTRO
-    ================================================= -->
-
+    <!-- DISTINCT INTRO -->
     <div class="distinct-intro">
 
         <c:if test="${not empty sec.title}">
@@ -17,90 +16,92 @@
         </c:if>
 
         <c:if test="${not empty sec.content}">
-            <div class="distinct-intro-content">
-                <c:out
-                    value="${sec.content}"
-                    escapeXml="false" />
-            </div>
+            <p>
+                <c:out value="${sec.content}" escapeXml="false" />
+            </p>
         </c:if>
 
     </div>
 
 
-    <!-- =================================================
-         DISTINCT CARDS
-         Dynamic number of images
-    ================================================= -->
+    <!-- DISTINCT CARDS -->
+    <c:forEach var="img" items="${sec.images}" varStatus="status">
+        <c:set var="cardClass" value="" />
+        <c:if test="${status.index == 0}"><c:set var="cardClass" value="distinct-card-first" /></c:if>
+        <c:if test="${status.index == 1}"><c:set var="cardClass" value="distinct-card-second" /></c:if>
 
-    <c:forEach
-        var="img"
-        items="${sec.images}"
-        varStatus="status">
+        <div class="distinct-card ${cardClass}">
 
-        <div class="distinct-card
-            ${status.index == 0
-                ? 'distinct-card-first'
-                : status.index == 1
-                    ? 'distinct-card-second'
-                    : ''}">
-
-            <!-- =================================================
-                 IMAGE
-            ================================================= -->
-
+            <!-- CARD IMAGE -->
             <img
                 src="${pageContext.request.contextPath}/imageStream?id=${img.id}"
-                alt="${not empty img.altText ? img.altText : sec.title}">
+                alt="<c:out value='${not empty img.altText ? img.altText : sec.title}' escapeXml='true' />"
+            >
 
 
-            <!-- =================================================
-                 HOVER OVERLAY
-            ================================================= -->
-
+            <!-- HOVER OVERLAY -->
             <div class="distinct-overlay">
 
                 <div class="distinct-overlay-content">
 
-                    <!-- =================================================
-                         HEADING 1
-                         HTML FROM DATABASE IS ALLOWED
-                    ================================================= -->
-
+                    <!-- HEADING 1 -->
                     <c:if test="${not empty img.heading1}">
                         <h4 class="image-heading1">
                             <c:out
                                 value="${img.heading1}"
-                                escapeXml="false" />
+                                escapeXml="false"
+                            />
                         </h4>
                     </c:if>
 
 
-                    <!-- =================================================
-                         HEADING 2
-                         HTML FROM DATABASE IS ALLOWED
-                    ================================================= -->
+                    <!-- HEADING 2 / ALT TEXT -->
+                    <c:choose>
 
-                    <c:if test="${not empty img.heading2}">
-                        <h5 class="image-heading2">
-                            <c:out
-                                value="${img.heading2}"
-                                escapeXml="false" />
-                        </h5>
-                    </c:if>
+                        <c:when test="${not empty img.heading2}">
+                            <h5 class="image-heading2">
+                                <c:out
+                                    value="${img.heading2}"
+                                    escapeXml="false"
+                                />
+                            </h5>
+                        </c:when>
 
 
-                    <!-- =================================================
-                         IMAGE TITLE
-                         HTML FROM DATABASE IS ALLOWED
-                    ================================================= -->
+                        <c:when test="${not empty img.altText && empty img.heading1}">
+                            <h3 class="image-heading2">
+                                <c:out
+                                    value="${img.altText}"
+                                    escapeXml="false"
+                                />
+                            </h3>
+                        </c:when>
 
-                    <c:if test="${not empty img.altText}">
-                        <h3 class="image-title">
+                    </c:choose>
+
+
+                    <!-- ALT TEXT WHEN HEADING 1 EXISTS -->
+                    <c:if test="${not empty img.altText && not empty img.heading1}">
+
+                        <h3>
                             <c:out
                                 value="${img.altText}"
-                                escapeXml="false" />
+                                escapeXml="false"
+                            />
                         </h3>
+
                     </c:if>
+
+
+                    <!-- READ MORE BUTTON -->
+                    <button
+                        type="button"
+                        class="read-more-btn"
+                        data-modal-id="${img.id}"
+                        aria-label="Read more"
+                    >
+                        READ MORE &rarr;
+                    </button>
 
                 </div>
 
@@ -111,3 +112,293 @@
     </c:forEach>
 
 </section>
+
+
+<!-- =================================================
+     MODALS FOR ALL CARDS
+================================================= -->
+
+<c:forEach var="img" items="${sec.images}">
+
+    <div
+        id="sp-modal-${img.id}"
+        class="sp-modal-overlay"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="sp-modal-content">
+
+            <!-- CLOSE BUTTON -->
+            <button
+                type="button"
+                class="sp-modal-close"
+                data-close-id="${img.id}"
+                aria-label="Close modal"
+            >
+                &times;
+            </button>
+
+
+            <!-- MODAL BODY -->
+            <div class="sp-modal-body">
+
+                <!-- MODAL IMAGE -->
+                <div class="sp-modal-img">
+
+                    <img
+                        src="${pageContext.request.contextPath}/imageStream?id=${img.id}"
+                        alt="<c:out value='${img.altText}' escapeXml='true' />"
+                    >
+
+                </div>
+
+
+                <!-- MODAL CONTENT -->
+                <div class="sp-modal-info">
+
+
+                    <!-- MODAL TITLE -->
+                    <c:choose>
+
+                        <c:when test="${not empty img.heading1}">
+                            <h3>
+                                <c:out
+                                    value="${img.heading1}"
+                                    escapeXml="false"
+                                />
+                            </h3>
+                        </c:when>
+
+
+                        <c:when test="${not empty img.altText}">
+                            <h3>
+                                <c:out
+                                    value="${img.altText}"
+                                    escapeXml="false"
+                                />
+                            </h3>
+                        </c:when>
+
+
+                        <c:otherwise>
+                            <h3>
+                                <c:out value="${sec.title}" />
+                            </h3>
+                        </c:otherwise>
+
+                    </c:choose>
+
+
+                    <!-- MODAL TEXT -->
+                    <div class="sp-modal-text">
+
+                        <c:choose>
+
+                            <c:when test="${not empty img.heading2}">
+
+                                <c:out
+                                    value="${img.heading2}"
+                                    escapeXml="false"
+                                />
+
+                            </c:when>
+
+
+                            <c:when test="${not empty img.altText && not empty img.heading1}">
+
+                                <c:out
+                                    value="${img.altText}"
+                                    escapeXml="false"
+                                />
+
+                            </c:when>
+
+
+                            <c:otherwise>
+
+                                <c:out
+                                    value="${sec.content}"
+                                    escapeXml="false"
+                                />
+
+                            </c:otherwise>
+
+                        </c:choose>
+
+                    </div>
+
+
+                    <!-- OPTIONAL LINK -->
+                    <c:if test="${not empty img.linkUrl}">
+
+                        <a
+                            href="${img.linkUrl}"
+                            class="sp-modal-link"
+                        >
+                            Campus Photos
+                        </a>
+
+                    </c:if>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</c:forEach>
+
+
+<!-- =================================================
+     MODAL JAVASCRIPT - INCLUDED IN THIS JSPF
+================================================= -->
+
+<script>
+(function () {
+
+    function initDistinctModals() {
+
+        console.log("DISTINCT MODAL JS INITIALIZED");
+
+        /*
+         * READ MORE
+         */
+        document.querySelectorAll(".read-more-btn").forEach(function (button) {
+
+            // Prevent attaching the same listener more than once
+            if (button.dataset.modalInitialized === "true") {
+                return;
+            }
+
+            button.dataset.modalInitialized = "true";
+
+            button.addEventListener("click", function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                var modalId = this.getAttribute("data-modal-id");
+
+                console.log("READ MORE CLICKED");
+                console.log("Modal ID:", modalId);
+
+                if (!modalId) {
+                    console.error("READ MORE ERROR: data-modal-id is missing");
+                    return;
+                }
+
+                var modal = document.getElementById("sp-modal-" + modalId);
+
+                console.log("Looking for:", "sp-modal-" + modalId);
+                console.log("Modal found:", modal);
+
+                if (!modal) {
+                    console.error(
+                        "READ MORE ERROR: Modal not found:",
+                        "sp-modal-" + modalId
+                    );
+                    return;
+                }
+
+                // Close any currently open modal
+                document
+                    .querySelectorAll(".sp-modal-overlay.active")
+                    .forEach(function (otherModal) {
+                        otherModal.classList.remove("active");
+                    });
+
+                // Open selected modal
+                modal.classList.add("active");
+
+                document.body.style.overflow = "hidden";
+            });
+        });
+
+
+        /*
+         * CLOSE BUTTON
+         */
+        document.querySelectorAll(".sp-modal-close").forEach(function (button) {
+
+            if (button.dataset.modalCloseInitialized === "true") {
+                return;
+            }
+
+            button.dataset.modalCloseInitialized = "true";
+
+            button.addEventListener("click", function (event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                var modal = this.closest(".sp-modal-overlay");
+
+                if (modal) {
+                    modal.classList.remove("active");
+                }
+
+                document.body.style.overflow = "";
+            });
+        });
+
+
+        /*
+         * CLOSE WHEN CLICKING BACKDROP
+         */
+        document.querySelectorAll(".sp-modal-overlay").forEach(function (modal) {
+
+            if (modal.dataset.backdropInitialized === "true") {
+                return;
+            }
+
+            modal.dataset.backdropInitialized = "true";
+
+            modal.addEventListener("click", function (event) {
+
+                if (event.target === modal) {
+
+                    modal.classList.remove("active");
+
+                    document.body.style.overflow = "";
+                }
+            });
+        });
+    }
+
+
+    /*
+     * IMPORTANT:
+     * If DOM is already loaded, initialize immediately.
+     * Otherwise wait for DOMContentLoaded.
+     */
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initDistinctModals);
+    } else {
+        initDistinctModals();
+    }
+
+
+    /*
+     * ESC KEY
+     */
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            var activeModal =
+                document.querySelector(".sp-modal-overlay.active");
+
+            if (activeModal) {
+
+                activeModal.classList.remove("active");
+
+                document.body.style.overflow = "";
+            }
+        }
+    });
+
+})();
+</script>
