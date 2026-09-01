@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBUtil {
 
     private static final String USER = "root";
-    private static final String PASSWORD = "vSZVibKCzvcovcGjaLlxrTddrjiNPVQn"; // Add your Railway DB password here if required
+    private static final String PASSWORD = "WVoVoSyYjGfAPHBNgxmDmcblbcHjbVYk"; // Add your Railway DB password here if required
 
     static {
         try {
@@ -21,7 +21,7 @@ public class DBUtil {
         String url;
 
         if ("SanWeb".equalsIgnoreCase(branch)) {
-            url = "jdbc:mysql://shuttle.proxy.rlwy.net:26985/SanWeb"
+            url = "jdbc:mysql://altaria.proxy.rlwy.net:41400/SanWeb"
                     + "?useSSL=false"
                     + "&allowPublicKeyRetrieval=true"
                     + "&serverTimezone=UTC"

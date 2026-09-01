@@ -5,6 +5,7 @@
 .hero-fullscreen-container {
     position: relative;
     width: 100%;
+    /* Removed fixed height so the container scales automatically */
     height: auto;
     overflow: hidden;
     background: #000;
@@ -18,23 +19,29 @@
 .hero-slide {
     position: absolute;
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     opacity: 0;
+
     visibility: hidden;
+
     transition: opacity 0.8s ease;
+
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Keep first slide relative to drive container height dynamically */
+/* 
+   Keep the first image relative so it expands the container's 
+   height dynamically based on its natural dimensions
+*/
 .hero-slide:first-child {
     position: relative;
 }
 
 /* ACTIVE SLIDE */
+
 .hero-slide.active {
     opacity: 1;
     visibility: visible;
@@ -43,16 +50,17 @@
 
 
 /* =====================================================
-   HERO IMAGE (FULL DISPLAY - NO CROPPING)
+   HERO IMAGE
 ===================================================== */
 
 .hero-slide img {
     width: 100%;
+    /* Auto height allows the image to stretch full width with zero side gaps */
     height: auto;
-    
-    /* Displays the ENTIRE image without cropping any edges */
-    object-fit: contain;
-    
+
+    /* Cover ensures edge-to-edge coverage without letterboxing gaps */
+    object-fit: cover;
+
     display: block;
 }
 
@@ -63,16 +71,18 @@
 
 .hero-slide::after {
     content: "";
+
     position: absolute;
+
     inset: 0;
+
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.65) 0%,
-        rgba(0, 0, 0, 0.15) 60%,
-        transparent 100%
+        rgba(0,0,0,0.65),
+        rgba(0,0,0,0.15)
     );
+
     z-index: 2;
-    pointer-events: none;
 }
 
 
@@ -82,27 +92,42 @@
 
 .slide-content {
     position: absolute;
+
     left: 8%;
     bottom: 15%;
+
     max-width: 700px;
+
     color: white;
+
     z-index: 3;
 }
 
+
 /* TITLE */
+
 .slide-content h2 {
     margin: 0 0 15px;
+
     font-family: 'Merriweather', serif;
+
     font-size: 42px;
+
     font-weight: 700;
+
     line-height: 1.2;
 }
 
+
 /* DESCRIPTION */
+
 .slide-content p {
     margin: 0;
+
     font-family: 'Open Sans', sans-serif;
+
     font-size: 19px;
+
     line-height: 1.6;
 }
 
@@ -113,35 +138,54 @@
 
 .hero-fullscreen-container .prev,
 .hero-fullscreen-container .next {
+
     position: absolute;
+
     top: 50%;
+
     transform: translateY(-50%);
+
     z-index: 5;
+
     width: 45px;
     height: 45px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     color: white;
-    background: rgba(0, 0, 0, 0.4);
+
+    background: rgba(0,0,0,0.4);
+
     border-radius: 50%;
+
     cursor: pointer;
+
     text-decoration: none;
+
     font-size: 25px;
+
     transition: background 0.3s ease;
 }
+
 
 .hero-fullscreen-container .prev {
     left: 20px;
 }
 
+
 .hero-fullscreen-container .next {
     right: 20px;
 }
 
+
 .hero-fullscreen-container .prev:hover,
 .hero-fullscreen-container .next:hover {
-    background: rgba(0, 0, 0, 0.75);
+
+    background: rgba(0,0,0,0.75);
+
 }
 
 
@@ -150,27 +194,44 @@
 ===================================================== */
 
 .hero-fullscreen-container .dots {
+
     position: absolute;
+
     bottom: 25px;
+
     left: 50%;
+
     transform: translateX(-50%);
+
     z-index: 5;
+
     display: flex;
+
     gap: 8px;
 }
 
+
 .hero-fullscreen-container .dot {
+
     width: 11px;
     height: 11px;
-    background: rgba(255, 255, 255, 0.6);
+
+    background: rgba(255,255,255,0.6);
+
     border-radius: 50%;
+
     cursor: pointer;
+
     transition: all 0.3s ease;
 }
 
+
 .hero-fullscreen-container .dot.active {
+
     background: white;
+
     transform: scale(1.25);
+
 }
 
 
@@ -179,24 +240,38 @@
 ===================================================== */
 
 @media (max-width: 768px) {
+
     .slide-content {
+
         left: 6%;
         right: 6%;
         bottom: 14%;
+
     }
+
 
     .slide-content h2 {
+
         font-size: 28px;
+
     }
 
+
     .slide-content p {
+
         font-size: 15px;
+
     }
+
 
     .hero-fullscreen-container .prev,
     .hero-fullscreen-container .next {
+
         width: 38px;
         height: 38px;
+
         font-size: 20px;
+
     }
+
 }
